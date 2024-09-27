@@ -1,0 +1,40 @@
+import pandas as pd
+ 
+ # Data provided for solving the task
+ data = {
+     "Name": ["Mark", "John", "Edward", "Salah", "Ahmed", "Sara", "Julia", "John", "Mark"],
+     "Gender": ["M", "M", "M", "M", "M", "F", "F", "M", "M"],
+     "Age": [20.365, 60.3226, 42.265, 31.38, 42.68, 25.364, 21.2857, 60.3226, 20.365],
+     "Salary(USD)": [1000, 1200, 3000, 5000, 1700, 1900, 1950, 1200, 1000]
+ }
+ 
+ # Load data into a DataFrame
+ df = pd.DataFrame(data)
+ 
+ # Task 1: Remove duplicates
+ df = df.drop_duplicates()
+ 
+ # Task 2: Remove any decimal places in the Age column
+ df['Age'] = df['Age'].astype(int)
+ 
+ # Assuming a conversion rate from USD to EGP (example rate: 30 EGP for 1 USD)
+ conversion_rate = 30
+ 
+ # Task 3: Convert the USD salary to EGP
+ df['Salary(EGP)'] = df['Salary(USD)'] * conversion_rate
+ 
+ # Task 4: Calculate the required stats
+ average_age = df['Age'].mean()
+ median_salary = df['Salary(EGP)'].median()
+ male_count = df[df['Gender'] == 'M'].shape[0]
+ female_count = df[df['Gender'] == 'F'].shape[0]
+ ratio_male_female = male_count / female_count if female_count != 0 else 'Undefined'
+ 
+ # Print the results
+ print(f"Average Age: {average_age}")
+ print(f"Median Salary (EGP): {median_salary}")
+ print(f"Ratio of Male to Female Employees: {ratio_male_female}")
+ 
+ # Task 5: Save the processed data to a new CSV file (not required to display but completing the task)
+ output_path = "/mnt/data/processed_data.csv"
+ df.to_csv(output_path, index=False)
